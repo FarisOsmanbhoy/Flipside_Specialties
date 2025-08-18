@@ -42,8 +42,8 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
       y: 0
     },
     inserting: {
-      x: 20,
-      y: 0,
+      x: 35,
+      y: -5,
       transition: { duration: 0.5 }
     },
     turning: { 
@@ -122,7 +122,7 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
           </div>
 
           {/* Deadbolt Housing */}
-          <div className="absolute left-8 top-[60%] -translate-y-1/2">
+          <div className="absolute left-8 top-[55%] -translate-y-1/2">
             <div className="w-12 h-16 bg-gradient-to-br from-zinc-700 to-zinc-800 rounded-lg shadow-lg p-1">
               {/* Decorative Screws */}
               <div className="absolute top-1 left-1 w-1 h-1 rounded-full bg-zinc-500" />
