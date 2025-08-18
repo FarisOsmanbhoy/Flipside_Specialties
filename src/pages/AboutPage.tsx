@@ -82,8 +82,8 @@ const teamMembers: TeamMember[] = [
     imageUrl: "https://images.pexels.com/photos/2379008/pexels-photo-2379008.jpeg"
   },
   {
-    name: "Apurva",
-    position: "Procurement Manager",
+    name: "Pooja",
+    position: "Assistant Project Manager",
     summary: "Sources and secures materials to keep every project estimated on schedule and cost effective.",
     imageUrl: "https://images.pexels.com/photos/3796220/pexels-photo-3796220.jpeg"
   }
