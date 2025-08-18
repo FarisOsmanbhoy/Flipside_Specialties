@@ -8,6 +8,7 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const sections = ['home', 'about', 'division8', 'division10', 'blog', 'contact'];
   const sectionRefs = sections.reduce((acc, section) => {
@@ -21,6 +22,13 @@ const Navbar: React.FC = () => {
   }, {});
 
   useEffect(() => {
+    // Always show solid navbar on non-homepage
+    if (!isHomePage) {
+      setIsScrolled(true);
+      return;
+    }
+
+    // Only use scroll-based logic on homepage
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -31,7 +39,7 @@ const Navbar: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -66,7 +74,7 @@ const Navbar: React.FC = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || !isHomePage
           ? 'bg-white shadow-md'
           : 'bg-transparent'
       }`}
@@ -74,7 +82,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className={`flex-shrink-0 font-bold text-2xl tracking-tight ${
-            isScrolled ? 'text-slate-900' : 'text-white'
+            isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'
           }`}>
             Flipside Specialties
           </Link>
@@ -90,7 +98,7 @@ const Navbar: React.FC = () => {
                   className={`font-medium transition-colors duration-300 ${
                     isActive(link.href)
                       ? 'text-orange-500'
-                      : isScrolled
+                      : isScrolled || !isHomePage
                         ? 'text-slate-800 hover:text-orange-500'
                         : 'text-white hover:text-orange-500'
                   }`}
@@ -106,7 +114,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md ${
-                isScrolled ? 'text-slate-900' : 'text-white'
+                isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'
               } hover:text-orange-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`}
             >
               <span className="sr-only">Open main menu</span>
