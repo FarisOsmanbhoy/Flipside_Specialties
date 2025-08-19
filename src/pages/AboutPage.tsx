@@ -1,5 +1,7 @@
 import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { listBucketImages } from '../lib/listBucket';
 
 interface TeamMember {
   name: string;
@@ -90,6 +92,10 @@ const teamMembers: TeamMember[] = [
 ];
 
 const AboutPage: React.FC = () => {
+  const [employeeImageMap, setEmployeeImageMap] = useState<Record<string, string>>({});
+  const [loadingImages, setLoadingImages] = useState(true);
+  const [imageError, setImageError] = useState<string | null>(null);
+
   const { ref: introRef, inView: introInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -98,6 +104,50 @@ const AboutPage: React.FC = () => {
   const { ref: teamRef, inView: teamInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
+  });
+
+  // Helper function to slugify names for matching with bucket filenames
+  const slugifyName = (name: string): string => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  };
+
+  // Fetch employee images from Supabase bucket
+  useEffect(() => {
+    const fetchEmployeeImages = async () => {
+      try {
+        setLoadingImages(true);
+        const imageUrls = await listBucketImages('Flipside-employees');
+        
+        // Create a mapping of slugified names to image URLs
+        const imageMap: Record<string, string> = {};
+        imageUrls.forEach(url => {
+          // Extract filename from URL and remove extension
+          const filename = url.split('/').pop()?.split('.')[0];
+          if (filename) {
+            imageMap[filename] = url;
+          }
+        });
+        
+        setEmployeeImageMap(imageMap);
+      } catch (err) {
+        setImageError(err instanceof Error ? err.message : 'Failed to load employee images');
+      } finally {
+        setLoadingImages(false);
+      }
+    };
+
+    fetchEmployeeImages();
+  }, []);
+
+  // Create team members array with dynamic images
+  const membersWithDynamicImages = teamMembers.map(member => {
+    const slugifiedName = slugifyName(member.name);
+    const dynamicImageUrl = employeeImageMap[slugifiedName];
+    
+    return {
+      ...member,
+      imageUrl: dynamicImageUrl || member.imageUrl // Fallback to original if not found
+    };
   });
 
   return (
@@ -147,10 +197,16 @@ const AboutPage: React.FC = () => {
             <h2 className="text-3xl font-bold text-slate-900">
               From Specs to Site — Meet the Crew
             </h2>
+            {loadingImages && (
+              <p className="text-gray-500 mt-2">Loading team images...</p>
+            )}
+            {imageError && (
+              <p className="text-red-500 mt-2">Error loading images: {imageError}</p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
+            {membersWithDynamicImages.map((member, index) => (
               <div
                 key={member.name}
                 className={`bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 
@@ -166,6 +222,11 @@ const AboutPage: React.FC = () => {
                     src={member.imageUrl}
                     alt={member.name}
                     className="w-32 h-32 rounded-full mx-auto object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      console.error('Image failed to load:', member.imageUrl);
+                      // Could set a default placeholder image here if needed
+                    }}
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">
