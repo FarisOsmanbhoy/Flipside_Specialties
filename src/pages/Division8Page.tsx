@@ -47,7 +47,15 @@ const Division8Page: React.FC = () => {
           </h2>
           <Button
             size="lg"
-            onClick={() => navigate('/#contact')}
+            onClick={() => {
+              navigate('/');
+              setTimeout(() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}
             className="animate-fadeIn"
           >
             Contact Us
