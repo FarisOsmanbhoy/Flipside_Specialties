@@ -79,6 +79,17 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent" />
             </div>
           </div>
+
+          {/* Deadbolt */}
+          <div className="absolute left-8 top-1/2 -translate-y-1/2 -mt-24">
+            {/* Deadbolt Housing */}
+            <div className="w-16 h-16 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-full shadow-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-zinc-600 to-zinc-800 rounded-full flex items-center justify-center">
+                {/* Deadbolt Cylinder */}
+                <div className="w-6 h-2 bg-gradient-to-br from-zinc-300 to-zinc-500 rounded-sm shadow-md transform rotate-0" />
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Content */}
