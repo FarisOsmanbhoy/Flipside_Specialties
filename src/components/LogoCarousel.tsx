@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { listBucketImages } from '../lib/listBucket';
 
 interface LogoCarouselProps {
-  bucket: string;
+  division: string;
 }
 
-const LogoCarousel: React.FC<LogoCarouselProps> = ({ bucket }) => {
+const LogoCarousel: React.FC<LogoCarouselProps> = ({ division }) => {
   const [urls, setUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,20 +14,9 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ bucket }) => {
     const fetchLogos = async () => {
       try {
         setLoading(true);
-        // Try common subfolder patterns first, then root
-        let logoUrls: string[] = [];
-        
-        // Try 'logos' subfolder first
-        try {
-          logoUrls = await listBucketImages(bucket, 'logos');
-          if (logoUrls.length === 0) {
-            // If no images in 'logos' folder, try root
-            logoUrls = await listBucketImages(bucket);
-          }
-        } catch (err) {
-          // If 'logos' folder doesn't exist, try root
-          logoUrls = await listBucketImages(bucket);
-        }
+        // Use single bucket with division-specific subfolders
+        const subfolder = division === 'Division 8' ? 'division8' : 'division10';
+        const logoUrls = await listBucketImages('company-logos', subfolder);
         
         setUrls(logoUrls);
       } catch (err) {
@@ -38,7 +27,7 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ bucket }) => {
     };
 
     fetchLogos();
-  }, [bucket]);
+  }, [division]);
 
   if (loading) {
     return (
