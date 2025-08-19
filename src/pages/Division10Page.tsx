@@ -33,7 +33,7 @@ const Division10Page: React.FC = () => {
           <div className={`transform transition-all duration-1000 ${
             inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            <LogoGrid bucket="Division 10" />
+            <LogoGrid division="Division 10" />
           </div>
         </div>
       </section>
