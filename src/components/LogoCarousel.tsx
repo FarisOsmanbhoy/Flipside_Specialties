@@ -14,7 +14,21 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ bucket }) => {
     const fetchLogos = async () => {
       try {
         setLoading(true);
-        const logoUrls = await listBucketImages(bucket);
+        // Try common subfolder patterns first, then root
+        let logoUrls: string[] = [];
+        
+        // Try 'logos' subfolder first
+        try {
+          logoUrls = await listBucketImages(bucket, 'logos');
+          if (logoUrls.length === 0) {
+            // If no images in 'logos' folder, try root
+            logoUrls = await listBucketImages(bucket);
+          }
+        } catch (err) {
+          // If 'logos' folder doesn't exist, try root
+          logoUrls = await listBucketImages(bucket);
+        }
+        
         setUrls(logoUrls);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load logos');

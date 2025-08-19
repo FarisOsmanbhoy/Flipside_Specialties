@@ -1,9 +1,10 @@
 import { supabase } from './supabase';
 
-export async function listBucketImages(bucket: string) {
+export async function listBucketImages(bucket: string, subfolder: string = '') {
   console.log('🔍 Attempting to list images from bucket:', bucket);
+  console.log('📁 Looking in subfolder:', subfolder || 'root');
   
-  const { data, error } = await supabase.storage.from(bucket).list('', { limit: 200 });
+  const { data, error } = await supabase.storage.from(bucket).list(subfolder, { limit: 200 });
   
   console.log('📦 Raw data from Supabase:', data);
   console.log('❌ Error from Supabase:', error);
@@ -16,7 +17,8 @@ export async function listBucketImages(bucket: string) {
   console.log('🖼️ Filtered image files:', filteredFiles);
   
   const publicUrls = filteredFiles.map(f => {
-    const publicUrl = supabase.storage.from(bucket).getPublicUrl(f.name).data.publicUrl;
+    const filePath = subfolder ? `${subfolder}/${f.name}` : f.name;
+    const publicUrl = supabase.storage.from(bucket).getPublicUrl(filePath).data.publicUrl;
     console.log('🔗 Generated URL for', f.name, ':', publicUrl);
     return publicUrl;
   });
