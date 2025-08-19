@@ -62,6 +62,8 @@ const LogoGrid: React.FC<LogoGridProps> = ({ bucket }) => {
             className="w-full h-24 object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
+              console.error('Image failed to load:', url, e);
+              console.log('Image src:', target.src);
               target.style.display = 'none';
             }}
           />
