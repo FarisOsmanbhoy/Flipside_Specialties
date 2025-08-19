@@ -139,12 +139,6 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-12 tracking-wider drop-shadow-lg">
             Flipside Specialties
           </h1>
-          
-          <div className="text-center">
-            <span className="block text-sm font-medium text-white">
-              {isUnlocking ? "Unlocking..." : "Click the deadbolt to unlock"}
-            </span>
-          </div>
         </div>
       </div>
     </AnimatePresence>
