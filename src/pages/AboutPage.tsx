@@ -123,7 +123,7 @@ const AboutPage: React.FC = () => {
           // Extract filename from URL and remove extension
           const filename = url.split('/').pop()?.split('.')[0];
           if (filename) {
-            imageMap[filename] = url;
+            imageMap[filename.toLowerCase()] = url;
           }
         });
         
