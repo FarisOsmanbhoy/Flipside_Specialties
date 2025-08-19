@@ -81,12 +81,17 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
           </div>
 
           {/* Deadbolt */}
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 -mt-24">
+          <div className="absolute left-8 top-[65%]">
             {/* Deadbolt Housing */}
-            <div className="w-16 h-16 bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-full shadow-lg flex items-center justify-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-zinc-600 to-zinc-800 rounded-full flex items-center justify-center">
-                {/* Deadbolt Cylinder */}
-                <div className="w-6 h-2 bg-gradient-to-br from-zinc-300 to-zinc-500 rounded-sm shadow-md transform rotate-0" />
+            <div className="w-20 h-20 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full shadow-lg flex items-center justify-center">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                {/* Keyhole */}
+                <div className="flex flex-col items-center justify-center">
+                  {/* Keyhole slot */}
+                  <div className="w-3 h-4 bg-black rounded-t-sm" />
+                  {/* Keyhole circle */}
+                  <div className="w-4 h-4 bg-black rounded-full -mt-2" />
+                </div>
               </div>
             </div>
           </div>
