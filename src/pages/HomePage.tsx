@@ -21,8 +21,6 @@ const HomePage: React.FC = () => {
       <div ref={ref} className={`transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}>
         <CompanySummary />
         <ManufacturerShowcase
-          onDivision8Click={() => navigate('/division8')}
-          onDivision10Click={() => navigate('/division10')}
         />
         <BlogSummary />
         <ContactSection />

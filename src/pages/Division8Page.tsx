@@ -1,21 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
 import Button from '../components/Button';
+import LogoGrid from '../components/LogoGrid';
 
 const Division8Page: React.FC = () => {
   const navigate = useNavigate();
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  // Placeholder manufacturer data
-  const manufacturers = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: `Manufacturer ${i + 1}`,
-    logo: `https://via.placeholder.com/200x100?text=Logo+${i + 1}`,
-  }));
 
   return (
     <div className="min-h-screen pt-16">
@@ -35,31 +24,7 @@ const Division8Page: React.FC = () => {
       </section>
 
       {/* Manufacturers Grid */}
-      <section ref={ref} className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {manufacturers.map((manufacturer) => (
-              <div
-                key={manufacturer.id}
-                className={`bg-white p-6 rounded-lg border border-gray-200 
-                  hover:border-orange-500 hover:shadow-lg hover:scale-105 
-                  transition-all duration-300 cursor-pointer
-                  transform ${inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-                style={{ transitionDelay: `${(manufacturer.id % 8) * 100}ms` }}
-              >
-                <img
-                  src={manufacturer.logo}
-                  alt={manufacturer.name}
-                  className="w-full h-auto object-contain mb-4"
-                />
-                <h3 className="text-center text-slate-700 font-medium">
-                  {manufacturer.name}
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <LogoGrid bucket="Division 8" title="Division 8 Partners" />
 
       {/* CTA Section */}
       <section className="bg-gray-50 py-20">
