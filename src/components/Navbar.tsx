@@ -68,6 +68,10 @@ const Navbar: React.FC = () => {
         contactSection.scrollIntoView({ behavior: 'smooth' });
       }
       setMobileMenuOpen(false);
+    } else {
+      // Scroll to top for all other navigation links
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setMobileMenuOpen(false);
     }
   };
 
