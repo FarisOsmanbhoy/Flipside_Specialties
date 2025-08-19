@@ -145,7 +145,7 @@ const AboutPage: React.FC = () => {
     
     return {
       ...member,
-      imageUrl: dynamicImageUrl || member.imageUrl // Fallback to original if not found
+      imageUrl: dynamicImageUrl // Only use Supabase bucket images
     };
   });
 
