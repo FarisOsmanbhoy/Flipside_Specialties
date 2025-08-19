@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from 'react';
+import { listBucketImages } from '../lib/listBucket';
+
+interface LogoGridProps {
+  bucket: string;
+}
+
+const LogoGrid: React.FC<LogoGridProps> = ({ bucket }) => {
+  const [urls, setUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLogos = async () => {
+      try {
+        setLoading(true);
+        const logoUrls = await listBucketImages(bucket);
+        setUrls(logoUrls);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load logos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogos();
+  }, [bucket]);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="bg-white p-6 rounded-lg border border-gray-200 animate-pulse">
+            <div className="w-full h-24 bg-gray-200 rounded"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-red-600">Error loading logos: {error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {urls.map((url, i) => (
+        <div
+          key={i}
+          className="bg-white p-6 rounded-lg border border-gray-200 
+                     hover:border-orange-500 hover:shadow-lg hover:scale-105 
+                     transition-all duration-300 cursor-pointer
+                     flex items-center justify-center"
+        >
+          <img
+            src={url}
+            alt="Partner logo"
+            className="w-full h-24 object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+            }}
+          />
+        </div>
+      ))}
+      {urls.length === 0 && (
+        <div className="col-span-full text-center py-12">
+          <p className="text-gray-500">No logos available yet</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LogoGrid;
