@@ -115,6 +115,23 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
               </div>
             </div>
           </div>
+
+          {/* Deadbolt Housing */}
+          <div className="absolute left-8 top-[55%] -translate-y-1/2">
+            <div className="w-12 h-16 bg-gradient-to-br from-zinc-700 to-zinc-800 rounded-lg shadow-lg p-1">
+              {/* Decorative Screws */}
+              <div className="absolute top-1 left-1 w-1 h-1 rounded-full bg-zinc-500" />
+              <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-zinc-500" />
+              <div className="absolute bottom-1 left-1 w-1 h-1 rounded-full bg-zinc-500" />
+              <div className="absolute bottom-1 right-1 w-1 h-1 rounded-full bg-zinc-500" />
+              
+              {/* Keyhole */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-6">
+                <div className="w-full h-3 bg-black rounded-t-full" />
+                <div className="w-2 h-3 bg-black mx-auto" />
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Content */}
@@ -123,34 +140,11 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
             Flipside Specialties
           </h1>
           
-          <button
-            onClick={handleUnlock}
-            className="relative group"
-            disabled={isUnlocking}
-          >
-            {/* Deadbolt */}
-            <div className="relative w-16 h-16 mx-auto">
-              {/* Outer cylinder */}
-              <div className="w-16 h-16 bg-gradient-to-br from-zinc-300 to-zinc-400 rounded-full shadow-lg border border-zinc-200">
-                {/* Inner recessed area */}
-                <div className="absolute inset-2 bg-gradient-to-br from-zinc-400 to-zinc-500 rounded-full shadow-inner">
-                  {/* Keyhole */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    {/* Circular part of keyhole */}
-                    <div className="w-3 h-3 bg-black rounded-full"></div>
-                    {/* Rectangular slot */}
-                    <div className="w-1 h-2 bg-black mx-auto -mt-1"></div>
-                  </div>
-                </div>
-                {/* Highlight on top edge */}
-                <div className="absolute top-1 left-2 right-2 h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-40 rounded-full"></div>
-              </div>
-            </div>
-
-            <span className="block mt-4 text-sm font-medium text-white group-hover:text-gray-100">
-              {isUnlocking ? "Unlocking..." : "Click to Unlock"}
+          <div className="text-center">
+            <span className="block text-sm font-medium text-white">
+              {isUnlocking ? "Unlocking..." : "Click the deadbolt to unlock"}
             </span>
-          </button>
+          </div>
         </div>
       </div>
     </AnimatePresence>
