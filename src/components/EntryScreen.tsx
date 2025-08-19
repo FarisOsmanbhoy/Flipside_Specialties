@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSound from 'use-sound';
-import { Key } from 'lucide-react';
 import slidingDoorSound from '/sliding-door.mp3';
 
 interface EntryScreenProps {
@@ -33,27 +32,6 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
       rotateY: isLeft ? -90 : 90,
       transition: { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] }
     })
-  };
-
-  const keyVariants = {
-    initial: { 
-      rotate: 0,
-      x: 0,
-      y: 0
-    },
-    inserting: {
-      x: 35,
-      y: -5,
-      transition: { duration: 0.5 }
-    },
-    turning: { 
-      rotate: 90,
-      transition: { 
-        duration: 0.5,
-        ease: "easeInOut",
-        delay: 0.5
-      }
-    }
   };
 
   return (
@@ -150,21 +128,27 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
             className="relative group"
             disabled={isUnlocking}
           >
-            {/* Key */}
-            <motion.div
-              className="relative"
-              variants={keyVariants}
-              initial="initial"
-              animate={isUnlocking ? ["inserting", "turning"] : "initial"}
-            >
-              <Key 
-                className="w-8 h-8 text-zinc-300 transform transition-all duration-500
-                         hover:text-zinc-100 hover:scale-105"
-              />
-            </motion.div>
+            {/* Deadbolt */}
+            <div className="relative w-16 h-16 mx-auto">
+              {/* Outer cylinder */}
+              <div className="w-16 h-16 bg-gradient-to-br from-zinc-300 to-zinc-400 rounded-full shadow-lg border border-zinc-200">
+                {/* Inner recessed area */}
+                <div className="absolute inset-2 bg-gradient-to-br from-zinc-400 to-zinc-500 rounded-full shadow-inner">
+                  {/* Keyhole */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    {/* Circular part of keyhole */}
+                    <div className="w-3 h-3 bg-black rounded-full"></div>
+                    {/* Rectangular slot */}
+                    <div className="w-1 h-2 bg-black mx-auto -mt-1"></div>
+                  </div>
+                </div>
+                {/* Highlight on top edge */}
+                <div className="absolute top-1 left-2 right-2 h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-40 rounded-full"></div>
+              </div>
+            </div>
 
             <span className="block mt-4 text-sm font-medium text-white group-hover:text-gray-100">
-              {isUnlocking ? "Unlocking..." : "Insert Key to Enter"}
+              {isUnlocking ? "Unlocking..." : "Click to Unlock"}
             </span>
           </button>
         </div>
