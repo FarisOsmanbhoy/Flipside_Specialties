@@ -9,17 +9,13 @@ interface EntryScreenProps {
 
 const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isUnlocking, setIsUnlocking] = useState(false);
   const [playSound] = useSound(slidingDoorSound);
 
   const handleUnlock = () => {
-    setIsUnlocking(true);
+    setIsOpen(true);
+    playSound();
     setTimeout(() => {
-      setIsOpen(true);
-      playSound();
-      setTimeout(() => {
-        onComplete();
-      }, 1000);
+      onComplete();
     }, 1000);
   };
 
@@ -36,7 +32,10 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center perspective-1000">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center perspective-1000 cursor-pointer"
+        onClick={handleUnlock}
+      >
         {/* Left Door */}
         <motion.div
           custom={true}
@@ -83,7 +82,7 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
         </motion.div>
 
         {/* Content */}
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center -translate-y-32">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-12 tracking-wider drop-shadow-lg">
             Flipside Specialties
           </h1>
