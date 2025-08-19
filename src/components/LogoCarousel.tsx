@@ -3,9 +3,10 @@ import { listBucketImages } from '../lib/listBucket';
 
 interface LogoCarouselProps {
   division: string;
+  onLogoClick?: () => void;
 }
 
-const LogoCarousel: React.FC<LogoCarouselProps> = ({ division }) => {
+const LogoCarousel: React.FC<LogoCarouselProps> = ({ division, onLogoClick }) => {
   const [urls, setUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +61,7 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ division }) => {
         {urls.map((url, i) => (
           <div
             key={i}
+            onClick={onLogoClick}
             className="flex-shrink-0 w-48 h-24 bg-white rounded-lg border border-gray-200 
                        hover:border-orange-500 hover:shadow-lg transition-all duration-300 cursor-pointer
                        flex items-center justify-center p-4"

@@ -26,7 +26,7 @@ const ManufacturerShowcase: React.FC<ManufacturerShowcaseProps> = ({
           <h3 className="text-2xl font-bold text-center mb-8 uppercase tracking-wide text-slate-900">
             Division 8 Partners
           </h3>
-          <LogoCarousel division="Division 8" />
+          <LogoCarousel division="Division 8" onLogoClick={() => handleDivisionClick('8')} />
         </div>
 
         {/* Division 10 */}
@@ -34,7 +34,7 @@ const ManufacturerShowcase: React.FC<ManufacturerShowcaseProps> = ({
           <h3 className="text-2xl font-bold text-center mb-8 uppercase tracking-wide text-slate-900">
             Division 10 Partners
           </h3>
-          <LogoCarousel division="Division 10" />
+          <LogoCarousel division="Division 10" onLogoClick={() => handleDivisionClick('10')} />
         </div>
       </div>
     </section>
