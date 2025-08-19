@@ -81,7 +81,7 @@ const EntryScreen: React.FC<EntryScreenProps> = ({ onComplete }) => {
           </div>
 
           {/* Deadbolt */}
-          <div className="absolute left-8 top-[65%]">
+          <div className="absolute left-1.5 top-[65%]">
             {/* Deadbolt Housing */}
             <div className="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full shadow-lg flex items-center justify-center">
               <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
