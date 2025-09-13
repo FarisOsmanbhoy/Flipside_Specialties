@@ -77,7 +77,7 @@ const ContactSection: React.FC = () => {
               
               <div className="flex items-center gap-2">
                 <Phone className="h-5 w-5 flex-shrink-0" />
-                <span>(832) 808 8386</span>
+                <span>832.844.2521</span>
               </div>
 
               <div className="flex items-center gap-2">
