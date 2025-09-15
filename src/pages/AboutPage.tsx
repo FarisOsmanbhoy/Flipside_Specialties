@@ -41,6 +41,12 @@ const teamMembers: TeamMember[] = [
     imageUrl: "https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg"
   },
   {
+    name: "Jared Kinsel",
+    position: "Project Manager",
+    summary: "Manages complex commercial projects with attention to detail and client focus.",
+    imageUrl: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg"
+  },
+  {
     name: "Jorge Martinez",
     position: "Warehouse",
     summary: "Handles receiving, stocking, and prepping materials with care and consistency.",
