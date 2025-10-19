@@ -103,7 +103,7 @@ const Navbar: React.FC = () => {
             <img
               src="https://dqwwhpgkehvajzqsrwbp.supabase.co/storage/v1/object/public/company-logos/company-logos/Company%20Assets/Company%20Logo.png"
               alt="Flipside Specialties"
-              className="h-16 w-auto"
+              className="h-20 w-auto"
             />
           </Link>
 
