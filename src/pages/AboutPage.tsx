@@ -47,12 +47,6 @@ const teamMembers: TeamMember[] = [
     imageUrl: ""
   },
   {
-    name: "Jorge Martinez",
-    position: "Warehouse",
-    summary: "Handles receiving, stocking, and prepping materials with care and consistency.",
-    imageUrl: ""
-  },
-  {
     name: "Orlando",
     position: "Installer",
     summary: "On-site lead ensuring clean, compliant installs that get noticed for the right reasons.",
