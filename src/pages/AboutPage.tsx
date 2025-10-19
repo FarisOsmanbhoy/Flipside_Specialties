@@ -237,7 +237,7 @@ const AboutPage: React.FC = () => {
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">
                   {member.name}
                 </h3>
-                <p className="text-orange-500 font-medium mb-2">
+                <p className="text-brand-500 font-medium mb-2">
                   {member.position}
                 </p>
                 <p className="text-slate-600">

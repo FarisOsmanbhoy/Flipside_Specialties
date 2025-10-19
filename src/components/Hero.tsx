@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
         <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-6 transition-all duration-700 animate-fadeIn">
             <span className="block">Building Houston's Future</span>
-            <span className="block mt-2 text-orange-400">One Project at a Time</span>
+            <span className="block mt-2 text-brand-300">One Project at a Time</span>
           </h1>
           
           <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto">

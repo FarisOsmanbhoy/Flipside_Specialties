@@ -19,7 +19,7 @@ const BlogSummary: React.FC = () => {
         }`}>
           {/* Content */}
           <div className="w-full md:w-2/3 space-y-6">
-            <div className="flex items-center gap-3 text-orange-500">
+            <div className="flex items-center gap-3 text-brand-500">
               <BookOpen className="h-6 w-6" />
               <h2 className="text-lg font-semibold uppercase tracking-wide">Our Blog</h2>
             </div>

@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantStyles = {
-    primary: 'bg-orange-500 hover:bg-orange-600 text-white focus:ring-orange-500',
+    primary: 'bg-brand-500 hover:bg-brand-600 text-white focus:ring-brand-500',
     secondary: 'bg-white hover:bg-gray-100 text-slate-900 border border-gray-300 focus:ring-slate-500',
   };
   

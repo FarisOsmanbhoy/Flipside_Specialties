@@ -57,7 +57,7 @@ const BlogPage: React.FC = () => {
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-3 text-orange-500 mb-4">
+          <div className="flex items-center justify-center gap-3 text-brand-500 mb-4">
             <BookOpen className="h-8 w-8" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -108,7 +108,7 @@ const BlogPage: React.FC = () => {
               {posts.map((post, index) => (
                 <article
                   key={post.slug}
-                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-orange-500 transition-all duration-300 cursor-pointer group"
+                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-brand-500 transition-all duration-300 cursor-pointer group"
                   style={{ transitionDelay: `${index * 100}ms` }}
                   onClick={() => {
                     // For now, just log the slug. In the future, this could navigate to the full post
@@ -130,7 +130,7 @@ const BlogPage: React.FC = () => {
                   )}
                   
                   <div className="p-6">
-                    <h2 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-orange-500 transition-colors">
+                    <h2 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-brand-500 transition-colors">
                       {post.title}
                     </h2>
                     

@@ -11,6 +11,18 @@ export default {
         teal: {
           950: '#042f2e',
         },
+        brand: {
+          50: '#f0f9fb',
+          100: '#d9f0f5',
+          200: '#b8e3ec',
+          300: '#87cfdf',
+          400: '#4eb3cb',
+          500: '#2D7389',
+          600: '#286379',
+          700: '#245264',
+          800: '#234554',
+          900: '#213a48',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],

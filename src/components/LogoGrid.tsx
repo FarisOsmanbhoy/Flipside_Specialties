@@ -54,8 +54,8 @@ const LogoGrid: React.FC<LogoGridProps> = ({ division }) => {
       {urls.map((url, i) => (
         <div
           key={i}
-          className="bg-white p-6 rounded-lg border border-gray-200 
-                     hover:border-orange-500 hover:shadow-lg hover:scale-105 
+          className="bg-white p-6 rounded-lg border border-gray-200
+                     hover:border-brand-500 hover:shadow-lg hover:scale-105
                      transition-all duration-300 cursor-pointer
                      flex items-center justify-center"
         >

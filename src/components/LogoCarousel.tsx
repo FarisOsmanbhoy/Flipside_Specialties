@@ -131,8 +131,8 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ division, onLogoClick }) =>
             <div
               key={i}
               onClick={onLogoClick}
-              className="flex-shrink-0 w-48 h-24 bg-white rounded-lg border border-gray-200 
-                         hover:border-orange-500 hover:shadow-lg transition-all duration-300 cursor-pointer
+              className="flex-shrink-0 w-48 h-24 bg-white rounded-lg border border-gray-200
+                         hover:border-brand-500 hover:shadow-lg transition-all duration-300 cursor-pointer
                          flex items-center justify-center p-4"
             >
               <img
@@ -157,8 +157,8 @@ const LogoCarousel: React.FC<LogoCarouselProps> = ({ division, onLogoClick }) =>
               key={i}
               onClick={() => setCurrentSlide(i)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                i === currentSlide 
-                  ? 'bg-orange-500 w-6' 
+                i === currentSlide
+                  ? 'bg-brand-500 w-6'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
               aria-label={`Go to slide ${i + 1}`}

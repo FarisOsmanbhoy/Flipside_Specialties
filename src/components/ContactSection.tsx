@@ -42,7 +42,7 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="bg-teal-900 py-24 relative overflow-hidden">
+    <section id="contact" className="bg-brand-800 py-24 relative overflow-hidden">
       {/* Geometric Pattern Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -62,11 +62,11 @@ const ContactSection: React.FC = () => {
               Exceptional Together
             </h2>
             
-            <p className="text-xl text-teal-100">
+            <p className="text-xl text-brand-100">
               Need quotes, answers, or samples? We're ready.
             </p>
 
-            <div className="space-y-4 text-teal-100">
+            <div className="space-y-4 text-brand-100">
               <div className="flex items-center gap-2">
                 <Building className="h-5 w-5 flex-shrink-0" />
                 <div>
@@ -84,7 +84,7 @@ const ContactSection: React.FC = () => {
                 <Mail className="h-5 w-5 flex-shrink-0" />
                 <a 
                   href="mailto:info@flipsidespecialties.com"
-                  className="text-white hover:text-orange-400 transition-colors"
+                  className="text-white hover:text-brand-300 transition-colors"
                 >
                   info@flipsidespecialties.com
                 </a>
@@ -111,7 +111,7 @@ const ContactSection: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                     aria-required="true"
                   />
                 </div>
@@ -127,7 +127,7 @@ const ContactSection: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                     aria-required="true"
                   />
                 </div>
@@ -143,7 +143,7 @@ const ContactSection: React.FC = () => {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                     aria-required="true"
                   />
                 </div>
@@ -159,7 +159,7 @@ const ContactSection: React.FC = () => {
                     required
                     value={formData.company}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                     aria-required="true"
                   />
                 </div>
@@ -174,13 +174,13 @@ const ContactSection: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-teal-900 hover:bg-teal-800 text-white"
+                  className="w-full bg-brand-900 hover:bg-brand-800 text-white"
                   size="lg"
                 >
                   Catch You on the FlipSide!

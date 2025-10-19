@@ -10,7 +10,7 @@ const CTASection: React.FC = () => {
         </h2>
         <a 
           href="tel:832.844.2521" 
-          className="inline-flex items-center gap-2 text-xl font-medium text-slate-900 hover:text-orange-500 transition-colors"
+          className="inline-flex items-center gap-2 text-xl font-medium text-slate-900 hover:text-brand-500 transition-colors"
         >
           <Phone className="h-5 w-5" />
           832.844.2521
