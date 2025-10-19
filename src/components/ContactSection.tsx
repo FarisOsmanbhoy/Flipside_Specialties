@@ -180,7 +180,7 @@ const ContactSection: React.FC = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-brand-900 hover:bg-brand-800 text-white"
+                  className="w-full"
                   size="lg"
                 >
                   Catch You on the FlipSide!

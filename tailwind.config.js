@@ -23,6 +23,18 @@ export default {
           800: '#234554',
           900: '#213a48',
         },
+        accent: {
+          50: '#fafef0',
+          100: '#f5fcd9',
+          200: '#eaf9b8',
+          300: '#dff687',
+          400: '#D2E075',
+          500: '#bfd24e',
+          600: '#a8b83d',
+          700: '#8a9a2f',
+          800: '#6d7b26',
+          900: '#5a6522',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],

@@ -93,17 +93,17 @@ const Navbar: React.FC = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled || !isHomePage
-          ? 'bg-brand-800 shadow-md'
+          ? 'bg-white shadow-md'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between h-20 items-center">
           <Link to="/" className="flex-shrink-0 flex items-center">
             <img
               src="/Company Logo.png"
               alt="Flipside Specialties"
-              className="h-12 w-auto"
+              className="h-16 w-auto"
             />
           </Link>
 
@@ -117,10 +117,12 @@ const Navbar: React.FC = () => {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`font-medium transition-colors duration-300 ${
                     isActive(link.href)
-                      ? 'text-brand-200'
+                      ? isScrolled || !isHomePage
+                        ? 'text-brand-500'
+                        : 'text-accent-400'
                       : isScrolled || !isHomePage
-                        ? 'text-white hover:text-brand-200'
-                        : 'text-white hover:text-brand-200'
+                        ? 'text-slate-900 hover:text-brand-500'
+                        : 'text-white hover:text-accent-400'
                   }`}
                 >
                   {link.name}
@@ -134,8 +136,8 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md ${
-                isScrolled || !isHomePage ? 'text-white' : 'text-white'
-              } hover:text-brand-200 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`}
+                isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'
+              } hover:text-brand-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500`}
             >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen ? (
@@ -150,7 +152,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile menu */}
       <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-brand-800 shadow-lg">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -158,8 +160,8 @@ const Navbar: React.FC = () => {
               onClick={(e) => handleNavClick(e, link.href)}
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive(link.href)
-                  ? 'text-brand-200'
-                  : 'text-white hover:text-brand-200'
+                  ? 'text-brand-500 bg-gray-100'
+                  : 'text-slate-900 hover:text-brand-500 hover:bg-gray-50'
               }`}
             >
               {link.name}
