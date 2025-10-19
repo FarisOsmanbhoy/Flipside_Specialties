@@ -14,85 +14,85 @@ const teamMembers: TeamMember[] = [
     name: "Natasha Osmanbhoy",
     position: "President",
     summary: "Leads the company with a sharp eye for detail and a deep commitment to excellence.",
-    imageUrl: "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg"
+    imageUrl: ""
   },
   {
     name: "Saahir Vadgama",
     position: "Warehouse Manager",
     summary: "Keeps operations flowing and ensures every order goes out right and on time.",
-    imageUrl: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+    imageUrl: ""
   },
   {
     name: "Faris Osmanbhoy",
     position: "Assistant Project Manager",
     summary: "Supports day-to-day project coordination with speed and precision.",
-    imageUrl: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg"
+    imageUrl: ""
   },
   {
     name: "John Roper",
     position: "Project Manager",
     summary: "Oversees commercial projects with clarity, structure, and experience.",
-    imageUrl: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"
+    imageUrl: ""
   },
   {
     name: "Betty Olmos",
     position: "Project Manager",
     summary: "Delivers project timelines with clear communication and no surprises.",
-    imageUrl: "https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg"
+    imageUrl: ""
   },
   {
     name: "Jared Kinsel",
     position: "Project Manager",
     summary: "Manages complex commercial projects with attention to detail and client focus.",
-    imageUrl: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg"
+    imageUrl: ""
   },
   {
     name: "Jorge Martinez",
     position: "Warehouse",
     summary: "Handles receiving, stocking, and prepping materials with care and consistency.",
-    imageUrl: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+    imageUrl: ""
   },
   {
     name: "Orlando",
     position: "Installer",
     summary: "On-site lead ensuring clean, compliant installs that get noticed for the right reasons.",
-    imageUrl: "https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg"
+    imageUrl: ""
   },
   {
     name: "Phanindra Kumar",
     position: "Assistant Project Manager",
     summary: "Bridges internal workflows and vendor coordination behind the scenes.",
-    imageUrl: "https://images.pexels.com/photos/2379006/pexels-photo-2379006.jpeg"
+    imageUrl: ""
   },
   {
     name: "Mohamed Hashmi",
     position: "Assistant Project Manager",
     summary: "Keeps things moving with methodical tracking and fast turnarounds.",
-    imageUrl: "https://images.pexels.com/photos/3796218/pexels-photo-3796218.jpeg"
+    imageUrl: ""
   },
   {
     name: "Sai Teja",
     position: "Assistant Project Manager",
     summary: "Supports project managers with fast documentation and follow-through.",
-    imageUrl: "https://images.pexels.com/photos/2379007/pexels-photo-2379007.jpeg"
+    imageUrl: ""
   },
   {
     name: "Mohamed Imran",
     position: "Estimator",
     summary: "Builds fast, accurate takeoffs that help contractors quote with confidence.",
-    imageUrl: "https://images.pexels.com/photos/3796219/pexels-photo-3796219.jpeg"
+    imageUrl: ""
   },
   {
     name: "Mohamed Sameer",
     position: "Estimator",
     summary: "Delivers detailed quotes that balance value, scope, and speed.",
-    imageUrl: "https://images.pexels.com/photos/2379008/pexels-photo-2379008.jpeg"
+    imageUrl: ""
   },
   {
     name: "Pooja",
     position: "Assistant Project Manager",
     summary: "Sources and secures materials to keep every project estimated on schedule and cost effective.",
-    imageUrl: "https://images.pexels.com/photos/3796220/pexels-photo-3796220.jpeg"
+    imageUrl: ""
   }
 ];
 
@@ -111,9 +111,12 @@ const AboutPage: React.FC = () => {
     threshold: 0.1,
   });
 
-  // Helper function to slugify names for matching with bucket filenames
-  const slugifyName = (name: string): string => {
-    return name.toLowerCase().replace(/\s+/g, '-');
+  // Helper function to format names to match Supabase bucket filenames
+  // Supabase uses capitalized format: "Natasha-Osmanbhoy"
+  const formatNameForBucket = (name: string): string => {
+    return name.split(' ').map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join('-');
   };
 
   // Fetch employee images from Supabase bucket
@@ -123,13 +126,14 @@ const AboutPage: React.FC = () => {
         setLoadingImages(true);
         const imageUrls = await listBucketImages('Flipside-employees');
         
-        // Create a mapping of slugified names to image URLs
+        // Create a mapping of formatted names to image URLs
         const imageMap: Record<string, string> = {};
         imageUrls.forEach(url => {
           // Extract filename from URL and remove extension
           const filename = url.split('/').pop()?.split('.')[0];
           if (filename) {
-            imageMap[filename.toLowerCase()] = url;
+            // Store with the exact capitalized format from Supabase
+            imageMap[filename] = url;
           }
         });
         
@@ -144,11 +148,11 @@ const AboutPage: React.FC = () => {
     fetchEmployeeImages();
   }, []);
 
-  // Create team members array with dynamic images
+  // Create team members array with dynamic images from Supabase
   const membersWithDynamicImages = teamMembers.map(member => {
-    const slugifiedName = slugifyName(member.name);
-    const dynamicImageUrl = employeeImageMap[slugifiedName];
-    
+    const formattedName = formatNameForBucket(member.name);
+    const dynamicImageUrl = employeeImageMap[formattedName];
+
     return {
       ...member,
       imageUrl: dynamicImageUrl // Only use Supabase bucket images
