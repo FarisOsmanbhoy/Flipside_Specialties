@@ -99,12 +99,12 @@ const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-28 items-center">
-          <Link to="/" className="flex items-center" style={{ width: '30%', minWidth: '280px' }}>
+          <Link to="/" className="flex items-center" style={{ width: '60%', minWidth: '560px' }}>
             <img
               src="https://dqwwhpgkehvajzqsrwbp.supabase.co/storage/v1/object/public/company-logos/company-logos/Company%20Assets/Company%20Logo.png"
               alt="Flipside Specialties"
               className="h-auto w-full object-contain"
-              style={{ maxHeight: '110px' }}
+              style={{ maxHeight: '220px' }}
             />
           </Link>
 
