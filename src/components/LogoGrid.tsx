@@ -15,7 +15,7 @@ const LogoGrid: React.FC<LogoGridProps> = ({ division }) => {
       try {
         setLoading(true);
         // Use single bucket with division-specific subfolders
-        const subfolder = division === 'Division 8' ? 'company-logos/division8' : 'company-logos/division10';
+        const subfolder = division === 'Division 8' ? 'division8' : 'division10';
         const logoUrls = await listBucketImages('company-logos', subfolder);
         
         setUrls(logoUrls);
