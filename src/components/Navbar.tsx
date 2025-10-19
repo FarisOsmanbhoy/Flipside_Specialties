@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between h-20 items-center">
           <Link to="/" className="flex-shrink-0 flex items-center">
             <img
-              src="/Company Logo.png"
+              src="https://dqwwhpgkehvajzqsrwbp.supabase.co/storage/v1/object/public/company-logos/company-logos/Company%20Assets/Company%20Logo.png"
               alt="Flipside Specialties"
               className="h-16 w-auto"
             />
