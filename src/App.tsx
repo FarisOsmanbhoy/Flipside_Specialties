@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
@@ -9,17 +9,11 @@ import BlogPage from './pages/BlogPage';
 import ServicesPage from './pages/ServicesPage';
 import ThankYouPage from './pages/ThankYouPage';
 import Footer from './components/Footer';
-import EntryScreen from './components/EntryScreen';
 
 function App() {
-  const [showEntryScreen, setShowEntryScreen] = useState(true);
-
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
-        {showEntryScreen && (
-          <EntryScreen onComplete={() => setShowEntryScreen(false)} />
-        )}
         <Navbar />
         <main className="flex-grow">
           <Routes>
