@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reorganize Supabase Storage</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1>Reorganize Storage Folders</h1>
+  <button id="reorganize">Run Reorganization</button>
+  <pre id="output"></pre>
+
+  <script>
+    const supabaseUrl = 'https://dqwwhpgkehvajzqsrwbp.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxd3docGdrZWh2YWp6cXNyd2JwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTUwODI1MCwiZXhwIjoyMDcxMDg0MjUwfQ.9Ah1Su6eqV_9uuNZ3tQ3_UDaJN7VjWAmFir0gwHx-lk';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const output = document.getElementById('output');
+    const log = (msg) => {
+      console.log(msg);
+      output.textContent += msg + '\n';
+    };
+
+    document.getElementById('reorganize').addEventListener('click', async () => {
+      output.textContent = '';
+      log('Starting reorganization...\n');
+
+      try {
+        // List Division 8 files
+        log('Listing Division 8 files...');
+        const { data: div8Files, error: div8Error } = await supabase.storage
+          .from('company-logos')
+          .list('company-logos/division8');
+
+        if (div8Error) {
+          log('Error listing Division 8: ' + div8Error.message);
+        } else {
+          log(`Found ${div8Files.length} Division 8 files`);
+
+          for (const file of div8Files) {
+            const oldPath = `company-logos/division8/${file.name}`;
+            const newPath = `division8/${file.name}`;
+            log(`Moving: ${oldPath} -> ${newPath}`);
+
+            // Download file
+            const { data: fileData, error: downloadError } = await supabase.storage
+              .from('company-logos')
+              .download(oldPath);
+
+            if (downloadError) {
+              log(`  ❌ Download failed: ${downloadError.message}`);
+              continue;
+            }
+
+            // Upload to new location
+            const { error: uploadError } = await supabase.storage
+              .from('company-logos')
+              .upload(newPath, fileData, { upsert: true });
+
+            if (uploadError) {
+              log(`  ❌ Upload failed: ${uploadError.message}`);
+              continue;
+            }
+
+            // Delete old file
+            const { error: deleteError } = await supabase.storage
+              .from('company-logos')
+              .remove([oldPath]);
+
+            if (deleteError) {
+              log(`  ⚠️ Uploaded but delete failed: ${deleteError.message}`);
+            } else {
+              log(`  ✅ Success`);
+            }
+          }
+        }
+
+        // List Division 10 files
+        log('\nListing Division 10 files...');
+        const { data: div10Files, error: div10Error } = await supabase.storage
+          .from('company-logos')
+          .list('company-logos/division10');
+
+        if (div10Error) {
+          log('Error listing Division 10: ' + div10Error.message);
+        } else {
+          log(`Found ${div10Files.length} Division 10 files`);
+
+          for (const file of div10Files) {
+            const oldPath = `company-logos/division10/${file.name}`;
+            const newPath = `division10/${file.name}`;
+            log(`Moving: ${oldPath} -> ${newPath}`);
+
+            // Download file
+            const { data: fileData, error: downloadError } = await supabase.storage
+              .from('company-logos')
+              .download(oldPath);
+
+            if (downloadError) {
+              log(`  ❌ Download failed: ${downloadError.message}`);
+              continue;
+            }
+
+            // Upload to new location
+            const { error: uploadError } = await supabase.storage
+              .from('company-logos')
+              .upload(newPath, fileData, { upsert: true });
+
+            if (uploadError) {
+              log(`  ❌ Upload failed: ${uploadError.message}`);
+              continue;
+            }
+
+            // Delete old file
+            const { error: deleteError } = await supabase.storage
+              .from('company-logos')
+              .remove([oldPath]);
+
+            if (deleteError) {
+              log(`  ⚠️ Uploaded but delete failed: ${deleteError.message}`);
+            } else {
+              log(`  ✅ Success`);
+            }
+          }
+        }
+
+        log('\n✅ Reorganization complete!');
+      } catch (error) {
+        log('\n❌ Error: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
