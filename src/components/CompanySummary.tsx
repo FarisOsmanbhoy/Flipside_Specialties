@@ -23,10 +23,10 @@ const CompanySummary: React.FC = () => {
             </h2>
             
             <p className="text-xl text-slate-600 leading-relaxed">
-              Flipside Specialties is a fast-moving, woman-owned construction supplier 
-              based in Houston. We specialize in Division 8 and 10 architectural 
-              products — from doors and frames to partitions and specialty fixtures — 
-              built on trust, speed, and precision.
+              At FlipSide Specialties, we specialize in the functional and the final,
+              Commercial doors, Frames, Hardware, and the Specialty items that bring a
+              space to life. Whether it's a fire extinguisher cabinet or a restroom
+              partition, we handle the details so you can focus on the big picture.
             </p>
             
             <p className="text-lg italic text-slate-500">
