@@ -15,10 +15,14 @@ const LogoGrid: React.FC<LogoGridProps> = ({ division }) => {
       try {
         setLoading(true);
         const subfolder = division === 'Division 8' ? 'company-logos/division8' : 'company-logos/division10';
+        console.log('📍 LogoGrid: Fetching logos for division:', division);
+        console.log('📍 LogoGrid: Using subfolder:', subfolder);
         const logoUrls = await listBucketImages('company-logos', subfolder);
+        console.log('📍 LogoGrid: Received URLs:', logoUrls);
 
         setUrls(logoUrls);
       } catch (err) {
+        console.error('📍 LogoGrid: Error fetching logos:', err);
         setError(err instanceof Error ? err.message : 'Failed to load logos');
       } finally {
         setLoading(false);

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Image Loading from Supabase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .image-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .image-card img {
+            max-width: 100%;
+            height: 120px;
+            object-fit: contain;
+        }
+        .image-card p {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+        }
+        .status {
+            padding: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.loading {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Image Loading from Supabase Storage</h1>
+
+    <div class="test-section">
+        <h2>Connection Test</h2>
+        <div id="connection-status" class="status loading">Checking connection...</div>
+        <button onclick="testConnection()">Retry Connection</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Division 10 Images</h2>
+        <div id="division10-status" class="status loading">Loading...</div>
+        <button onclick="loadDivision10()">Reload Division 10</button>
+        <div id="division10-grid" class="image-grid"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Division 8 Images</h2>
+        <div id="division8-status" class="status loading">Loading...</div>
+        <button onclick="loadDivision8()">Reload Division 8</button>
+        <div id="division8-grid" class="image-grid"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Debug Console</h2>
+        <pre id="debug-console">Initializing...</pre>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const SUPABASE_URL = 'https://dqwwhpgkehvajzqsrwbp.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxd3docGdrZWh2YWp6cXNyd2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU1MDgyNTAsImV4cCI6MjA3MTA4NDI1MH0.h3hYZR6xbXqxFPjJ5CRDTOMYy7XxUwi1ovIXwKMfp6s';
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let debugLog = [];
+
+        function log(message, data = null) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            debugLog.push(logEntry);
+            if (data) {
+                debugLog.push(JSON.stringify(data, null, 2));
+            }
+            document.getElementById('debug-console').textContent = debugLog.join('\n');
+            console.log(message, data);
+        }
+
+        async function testConnection() {
+            const statusEl = document.getElementById('connection-status');
+            statusEl.textContent = 'Testing connection...';
+            statusEl.className = 'status loading';
+
+            try {
+                log('Testing connection to Supabase...');
+                log('URL:', SUPABASE_URL);
+
+                const { data, error } = await supabase.storage.listBuckets();
+
+                if (error) {
+                    throw error;
+                }
+
+                log('✅ Connection successful!', data);
+                statusEl.textContent = `✅ Connected! Found ${data.length} buckets`;
+                statusEl.className = 'status success';
+            } catch (err) {
+                log('❌ Connection failed:', err);
+                statusEl.textContent = `❌ Connection failed: ${err.message}`;
+                statusEl.className = 'status error';
+            }
+        }
+
+        async function loadImages(division, statusElId, gridElId) {
+            const statusEl = document.getElementById(statusElId);
+            const gridEl = document.getElementById(gridElId);
+
+            statusEl.textContent = 'Loading images...';
+            statusEl.className = 'status loading';
+            gridEl.innerHTML = '';
+
+            try {
+                const subfolder = division === 8 ? 'company-logos/division8' : 'company-logos/division10';
+
+                log(`\n🔍 Loading Division ${division} images from: ${subfolder}`);
+
+                const { data: files, error } = await supabase.storage
+                    .from('company-logos')
+                    .list(subfolder, { limit: 200 });
+
+                if (error) {
+                    throw error;
+                }
+
+                log(`📦 Found ${files.length} files:`, files);
+
+                const imageFiles = files.filter(f =>
+                    /\.(png|jpe?g|webp|avif|svg)$/i.test(f.name)
+                );
+
+                log(`🖼️ Filtered to ${imageFiles.length} image files`);
+
+                if (imageFiles.length === 0) {
+                    statusEl.textContent = '⚠️ No images found in this folder';
+                    statusEl.className = 'status error';
+                    return;
+                }
+
+                imageFiles.forEach(file => {
+                    const filePath = `${subfolder}/${file.name}`;
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('company-logos')
+                        .getPublicUrl(filePath);
+
+                    log(`🔗 Generated URL for ${file.name}:`, publicUrl);
+
+                    const card = document.createElement('div');
+                    card.className = 'image-card';
+
+                    const img = document.createElement('img');
+                    img.src = publicUrl;
+                    img.alt = file.name;
+                    img.onerror = () => {
+                        log(`❌ Failed to load: ${publicUrl}`);
+                        card.style.borderColor = 'red';
+                        img.alt = 'Failed to load';
+                    };
+                    img.onload = () => {
+                        log(`✅ Successfully loaded: ${file.name}`);
+                    };
+
+                    const name = document.createElement('p');
+                    name.textContent = file.name;
+
+                    card.appendChild(img);
+                    card.appendChild(name);
+                    gridEl.appendChild(card);
+                });
+
+                statusEl.textContent = `✅ Loaded ${imageFiles.length} images`;
+                statusEl.className = 'status success';
+
+            } catch (err) {
+                log(`❌ Error loading Division ${division}:`, err);
+                statusEl.textContent = `❌ Error: ${err.message}`;
+                statusEl.className = 'status error';
+            }
+        }
+
+        window.testConnection = testConnection;
+        window.loadDivision10 = () => loadImages(10, 'division10-status', 'division10-grid');
+        window.loadDivision8 = () => loadImages(8, 'division8-status', 'division8-grid');
+
+        testConnection();
+        loadImages(10, 'division10-status', 'division10-grid');
+        loadImages(8, 'division8-status', 'division8-grid');
+    </script>
+</body>
+</html>
